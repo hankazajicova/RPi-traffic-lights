@@ -1,8 +1,8 @@
 import time
-from gpiozero import LED, Button
-from src.gpios import *
+from src.gpios import green_cars, green_pedestrian
+from src.gpios import orange_cars, red_pedestrian, red_cars, led_button
 
-#    time.sleep(in seconds)
+#    time sleep (in seconds)
 
 def wait_for_green(delay: int):
     """button light is initiated and process is waiting depending on delay

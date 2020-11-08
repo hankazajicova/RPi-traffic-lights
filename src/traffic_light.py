@@ -1,7 +1,6 @@
 import time
-from gpiozero import LED, Button
 from src.cross_sequence import tl_sequence
-from src.gpios import *
+from src.gpios import green_cars, red_pedestrian, pedestrian_button_1, pedestrian_button_2
 
 
 def get_delay(last_time_traffic_started: float) -> int:
@@ -18,15 +17,15 @@ def get_delay(last_time_traffic_started: float) -> int:
     difference = time_limit - (time.time() - last_time_traffic_started)
     if difference < 5:
         return 5
-    else:
-        return int(difference)
+
+    return int(difference)
 
 
 def traffic_lights() -> None:
     """
     method for traffic lights pedestrian crosswalk
     """
-    last_time_traffic_started = 0
+    last_time_traffic_started: float = 0
     try:
         while True:
             if pedestrian_button_1.is_pressed or pedestrian_button_2.is_pressed:
@@ -36,11 +35,13 @@ def traffic_lights() -> None:
             else:
                 green_cars.on()
                 red_pedestrian.on()
-                    
+
     except KeyboardInterrupt:
         pass
 
 
 def main():
+    """
+    starting method for the pedestrian crosswalk
+    """
     traffic_lights()
-    
